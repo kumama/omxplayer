@@ -87,6 +87,10 @@ public:
   float GetMaxLevel(double &pts);
   COMXAudio();
   bool Initialize(OMXClock *clock, const OMXAudioConfig &config, uint64_t channelMap, unsigned int uiBitsPerSample);
+  bool ChangeInputFormat(const CStdString& device, int iChannels, uint64_t channelMap,
+                           COMXStreamInfo &hints, enum PCMLayout layout, unsigned int uiSamplesPerSec, unsigned int uiBitsPerSample, bool boostOnDownmix,
+                           OMXClock *clock, bool bUsePassthrough = false, bool bUseHWDecode = false, bool is_live = false, float fifo_size = 0);
+
   ~COMXAudio();
   bool PortSettingsChanged();
 
