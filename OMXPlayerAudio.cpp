@@ -518,3 +518,8 @@ bool OMXPlayerAudio::IsEOS()
   return m_packets.empty() && (!m_decoder || m_decoder->IsEOS());
 }
 
+bool OMXPlayerAudio::ToggleMonoTrack()
+{
+  if(m_decoder)
+    m_decoder->ToggleMonoTrack();
+}

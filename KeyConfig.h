@@ -43,6 +43,7 @@ class KeyConfig
         ACTION_CROP_VIDEO = 34,
         ACTION_PAUSE = 35,
         ACTION_PLAY = 36,
+        ACTION_TOGGLE_MONOTRACK = 37
     };
 
     #define KEY_LEFT 0x5b44

@@ -106,6 +106,7 @@ public:
   bool ApplyVolume();
   void SubmitEOS();
   bool IsEOS();
+  bool ToggleMonoTrack();
 
   void Flush();
 
@@ -150,6 +151,7 @@ private:
   bool          m_submitted_eos;
   bool          m_failed_eos;
   OMXAudioConfig m_config;
+  int           m_monotrack;
 
   OMX_AUDIO_CHANNELTYPE m_input_channels[OMX_AUDIO_MAXCHANNELS];
   OMX_AUDIO_CHANNELTYPE m_output_channels[OMX_AUDIO_MAXCHANNELS];

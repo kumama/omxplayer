@@ -1103,6 +1103,12 @@ OMXControlResult OMXControl::handle_event(DBusMessage *m)
     dbus_respond_ok(m);
     return KeyConfig::ACTION_HIDE_SUBTITLES;
   }
+  else if (dbus_message_is_method_call(m, OMXPLAYER_DBUS_INTERFACE_PLAYER, "ToggleMonoTrack"))
+  {
+    audio->ToggleMonoTrack();
+    dbus_respond_ok(m);
+    return KeyConfig::ACTION_TOGGLE_MONOTRACK;
+  }
   else if (dbus_message_is_method_call(m, OMXPLAYER_DBUS_INTERFACE_PLAYER, "Action"))
   {
     DBusError error;

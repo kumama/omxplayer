@@ -110,5 +110,6 @@ public:
   void SetMute(bool bOnOff)                              { m_mute = bOnOff; if(m_decoder) m_decoder->SetMute(bOnOff); }
   void SetDynamicRangeCompression(long drc)              { m_amplification = drc; if(m_decoder) m_decoder->SetDynamicRangeCompression(drc); }
   bool Error() { return !m_player_error; };
+  bool ToggleMonoTrack();
 };
 #endif

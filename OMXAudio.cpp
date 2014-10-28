@@ -71,6 +71,7 @@ COMXAudio::COMXAudio() :
   m_last_pts        (DVD_NOPTS_VALUE),
   m_submitted_eos   (false  ),
   m_failed_eos      (false  )
+  m_monotrack       (0)
 {
 }
 
@@ -1424,6 +1425,38 @@ void COMXAudio::SubmitEOS()
     return;
   }
   CLog::Log(LOGINFO, "%s::%s", CLASSNAME, __func__);
+}
+
+bool COMXAudio::ToggleMonoTrack()
+{
+  if(!m_Initialized)
+    return true;
+
+  CSingleLock lock (m_critSection);
+
+  OMX_CONFIG_AUDIOMONOTRACKCONTROLTYPE amtc;
+  OMX_INIT_STRUCTURE(amtc);
+  OMX_ERRORTYPE omx_err;
+
+  m_monotrack = m_monotrack + 1;
+  if( m_monotrack > (int)OMX_AUDIOMONOTRACKOPERATIONS_R_TO_L )
+    m_monotrack = (int)OMX_AUDIOMONOTRACKOPERATIONS_NOP;
+
+  amtc.nPortIndex = m_omx_decoder.GetOutputPort();
+    // document explain its input port(120) but only work with output port(121)
+  amtc.eMode = (OMX_AUDIOMONOTRACKOPERATIONSTYPE)m_monotrack;
+
+  omx_err = m_omx_decoder.SetConfig(OMX_IndexConfigAudioMonoTrackControl, &amtc);
+  if(omx_err != OMX_ErrorNone)
+  {
+    CLog::Log(LOGERROR, "%s::%s - error setting decoder OMX_IndexConfigAudioMonoTrackControl, error 0x%08x\n",
+          CLASSNAME, __func__, omx_err);
+    printf( "%s::%s - error setting decoder OMX_IndexConfigAudioMonoTrackControl, error 0x%08x\n",
+          CLASSNAME, __func__, omx_err);
+    return false;
+  }
+
+  return true;
 }
 
 bool COMXAudio::IsEOS()

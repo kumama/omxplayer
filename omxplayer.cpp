@@ -1501,6 +1501,9 @@ int main(int argc, char *argv[])
           m_Volume / 100.0f));
         printf("Current Volume: %.2fdB\n", m_Volume / 100.0f);
         break;
+      case KeyConfig::ACTION_TOGGLE_MONOTRACK:
+        m_player_audio.ToggleMonoTrack();
+        break;
       default:
         break;
     }

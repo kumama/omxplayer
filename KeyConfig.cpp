@@ -128,6 +128,7 @@ map<int, int> KeyConfig::buildDefaultKeymap()
     keymap['v'] = ACTION_STEP;
     keymap['w'] = ACTION_SHOW_SUBTITLES;
     keymap['x'] = ACTION_HIDE_SUBTITLES;
+    keymap['t'] = ACTION_TOGGLE_MONOTRACK;
 
     return keymap;
 }
